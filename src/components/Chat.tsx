@@ -3,7 +3,20 @@ import { RootState } from "../store/index";
 import { connect } from "react-redux";
 import React from "react";
 
-const Chat = () => <h1>Chat</h1>;
+function Chat(props: any) {
+  const messageList = () =>
+    props.messages.map((message: any) => <li>{message.message}</li>);
+  return (
+    <div>
+      <h1>Chat</h1>
+      <form>
+        <input type="text" />
+        <input type="submit" value="Send" />
+      </form>
+      <div>{messageList()}</div>
+    </div>
+  );
+}
 
 const mapDispatch = {
   sendMessage: () => ({ type: "SEND_MESSAGE" })
