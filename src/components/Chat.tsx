@@ -10,10 +10,15 @@ function Chat(props: any) {
     props.messages.map((message: any) => <li>{message.message}</li>);
 
   const handleChange = (e: any) => setMessage(e.currentTarget.value);
+  const handleSubmit = (e: React.FormEvent<HTMLElement>) => {
+    e.preventDefault();
+    props.sendMessage({ user: "", message, timestamp: 0 });
+  };
+
   return (
     <div>
       <h1>Chat</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input type="text" onChange={handleChange} />
         <input type="submit" value="Send" />
       </form>
@@ -23,9 +28,9 @@ function Chat(props: any) {
   );
 }
 
-const mapDispatch = {
-  sendMessage: () => ({ type: "SEND_MESSAGE" })
-};
+const mapDispatch = (dispatch: any) => ({
+  sendMessage: (message: any) => dispatch(actions.sendMessage(message))
+});
 
 const mapState = (state: RootState) => ({
   messages: state.messages
