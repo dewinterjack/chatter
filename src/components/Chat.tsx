@@ -10,9 +10,9 @@ function Chat(props: any) {
 
   const messageList = () =>
     props.messages.map((message: Message) => (
-      <div>
+      <div key={message.timestamp}>
         <br />
-        <Card>
+        <Card style={{ width: "75%", margin: "auto", textAlign: "start" }}>
           <CardBody>
             <CardText>{message.message}</CardText>
           </CardBody>
