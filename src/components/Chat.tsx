@@ -21,16 +21,18 @@ function Chat(props: any) {
     ));
 
   const handleChange = (e: any) => setMessage(e.currentTarget.value);
+
   const handleSubmit = (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
     props.sendMessage({ user: "", message, timestamp: Date.now() });
+    setMessage("");
   };
 
   return (
     <div>
       <h1>Chat</h1>
       <form onSubmit={handleSubmit}>
-        <input type="text" onChange={handleChange} />
+        <input type="text" value={message} onChange={handleChange} />
         <input type="submit" value="Send" />
       </form>
       {messageList()}
