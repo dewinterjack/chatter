@@ -3,7 +3,7 @@ import { RootState } from "../store/index";
 import { connect } from "react-redux";
 import React, { useState } from "react";
 import { Message } from "../store/chat/types";
-import { Card, CardBody, CardText } from "reactstrap";
+import { Card, CardBody, CardText, CardFooter } from "reactstrap";
 
 function Chat(props: any) {
   const [message, setMessage] = useState("");
@@ -15,6 +15,11 @@ function Chat(props: any) {
         <Card style={{ width: "75%", margin: "auto", textAlign: "start" }}>
           <CardBody>
             <CardText>{message.message}</CardText>
+            <CardFooter
+              style={{ fontSize: "x-small", textAlign: "right", padding: 0 }}
+            >
+              {new Date(message.timestamp).toLocaleTimeString()}
+            </CardFooter>
           </CardBody>
         </Card>
       </div>
