@@ -15,10 +15,15 @@ function Chat(props: any) {
         <Card style={{ width: "75%", margin: "auto", textAlign: "start" }}>
           <CardBody>
             <CardText>{message.message}</CardText>
-            <CardFooter
-              style={{ fontSize: "x-small", textAlign: "right", padding: 0 }}
-            >
-              {new Date(message.timestamp).toLocaleTimeString()}
+            <CardFooter style={{ fontSize: "x-small", padding: 0 }}>
+              <div
+                style={{
+                  float: "right"
+                }}
+              >
+                {new Date(message.timestamp).toLocaleTimeString()}
+              </div>
+              {message.user}
             </CardFooter>
           </CardBody>
         </Card>
@@ -29,7 +34,7 @@ function Chat(props: any) {
 
   const handleSubmit = (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
-    props.sendMessage({ user: "", message, timestamp: Date.now() });
+    props.sendMessage({ user: "guest", message, timestamp: Date.now() });
     setMessage("");
   };
 
