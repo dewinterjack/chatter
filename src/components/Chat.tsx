@@ -25,7 +25,6 @@ function Chat(props: any) {
         <input type="text" onChange={handleChange} />
         <input type="submit" value="Send" />
       </form>
-      <p>{message}</p>
       <div>{messageList()}</div>
     </div>
   );
