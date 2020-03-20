@@ -1,8 +1,8 @@
 import { LOG_IN, SystemActionTypes } from "./types";
 
-export function login(username: string): SystemActionTypes {
+export function login(name: string): SystemActionTypes {
   return {
     type: LOG_IN,
-    name: username
+    name: name
   };
 }

@@ -15,7 +15,7 @@ function Login(props: any) {
 }
 
 const mapDispatch = (dispatch: any) => ({
-  login: (username: string) => dispatch(actions.login(username))
+  login: (name: string) => dispatch(actions.login(name))
 });
 
 const mapState = (state: RootState) => ({

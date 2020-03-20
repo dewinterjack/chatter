@@ -1,7 +1,8 @@
 import { SystemState, SystemActionTypes, LOG_IN } from "./types";
 
 const initialState: SystemState = {
-  usersOnline: 0
+  usersOnline: 0,
+  currentUser: { id: 0, name: "" }
 };
 
 export function systemReducer(
@@ -11,7 +12,8 @@ export function systemReducer(
   switch (action.type) {
     case LOG_IN:
       return {
-        usersOnline: state.usersOnline + 1
+        usersOnline: state.usersOnline + 1,
+        currentUser: { id: state.usersOnline + 1, name: action.name }
       };
     default:
       return state;

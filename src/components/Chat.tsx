@@ -23,7 +23,7 @@ function Chat(props: any) {
               >
                 {new Date(message.timestamp).toLocaleTimeString()}
               </div>
-              {message.user}
+              {props.currentUser.name}
             </CardFooter>
           </CardBody>
         </Card>
@@ -55,7 +55,8 @@ const mapDispatch = (dispatch: any) => ({
 });
 
 const mapState = (state: RootState) => ({
-  messages: state.chat.messages
+  messages: state.chat.messages,
+  currentUser: state.system.currentUser
 });
 
 export default connect(mapState, mapDispatch)(Chat);

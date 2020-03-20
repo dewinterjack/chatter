@@ -3,12 +3,9 @@ export interface User {
   name: string;
 }
 
-export interface UserState {
-  loggedIn: boolean;
-}
-
 export interface SystemState {
   usersOnline: number;
+  currentUser: User;
 }
 
 export const LOG_IN = "LOG_IN";
