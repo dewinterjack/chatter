@@ -2,17 +2,20 @@ import * as actions from "../store/chat/actions";
 import { RootState } from "../store/index";
 import { connect } from "react-redux";
 import React, { useState } from "react";
+import { Message } from "../store/chat/types";
 
 function Chat(props: any) {
   const [message, setMessage] = useState("");
 
   const messageList = () =>
-    props.messages.map((message: any) => <li>{message.message}</li>);
+    props.messages.map((message: Message) => (
+      <li key={message.timestamp}>{message.message}</li>
+    ));
 
   const handleChange = (e: any) => setMessage(e.currentTarget.value);
   const handleSubmit = (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
-    props.sendMessage({ user: "", message, timestamp: 0 });
+    props.sendMessage({ user: "", message, timestamp: Date.now() });
   };
 
   return (
