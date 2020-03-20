@@ -55,7 +55,7 @@ const mapDispatch = (dispatch: any) => ({
 });
 
 const mapState = (state: RootState) => ({
-  messages: state.messages
+  messages: state.chat.messages
 });
 
 export default connect(mapState, mapDispatch)(Chat);

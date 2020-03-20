@@ -6,10 +6,10 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-import { chatReducer } from "./store/chat/reducer";
+import { rootReducer } from "./store/index";
 import { composeWithDevTools } from "redux-devtools-extension";
 
-const store = createStore(chatReducer, composeWithDevTools());
+const store = createStore(rootReducer, composeWithDevTools());
 
 ReactDOM.render(
   <Provider store={store}>
