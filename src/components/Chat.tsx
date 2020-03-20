@@ -3,13 +3,21 @@ import { RootState } from "../store/index";
 import { connect } from "react-redux";
 import React, { useState } from "react";
 import { Message } from "../store/chat/types";
+import { Card, CardBody, CardText } from "reactstrap";
 
 function Chat(props: any) {
   const [message, setMessage] = useState("");
 
   const messageList = () =>
     props.messages.map((message: Message) => (
-      <li key={message.timestamp}>{message.message}</li>
+      <div>
+        <br />
+        <Card>
+          <CardBody>
+            <CardText>{message.message}</CardText>
+          </CardBody>
+        </Card>
+      </div>
     ));
 
   const handleChange = (e: any) => setMessage(e.currentTarget.value);
@@ -25,7 +33,7 @@ function Chat(props: any) {
         <input type="text" onChange={handleChange} />
         <input type="submit" value="Send" />
       </form>
-      <div>{messageList()}</div>
+      {messageList()}
     </div>
   );
 }
