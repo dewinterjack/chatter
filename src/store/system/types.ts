@@ -9,10 +9,15 @@ export interface SystemState {
 }
 
 export const LOG_IN = "LOG_IN";
+export const LOG_OUT = "LOG_OUT";
 
 interface LoginAction {
   type: typeof LOG_IN;
   name: string;
 }
 
-export type SystemActionTypes = LoginAction;
+interface LogoutAction {
+  type: typeof LOG_OUT;
+}
+
+export type SystemActionTypes = LoginAction | LogoutAction;

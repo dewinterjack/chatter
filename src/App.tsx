@@ -5,12 +5,14 @@ import Chat from "./components/Chat";
 import Login from "./components/Login";
 import { RootState } from "./store/index";
 import { connect } from "react-redux";
+import Logout from "./components/Logout";
 
 function App(props: any) {
   const mainContent = () => {
     if (props.usersOnline === 0) {
       return <Login />;
     }
+
     return <Chat />;
   };
 
@@ -20,7 +22,7 @@ function App(props: any) {
         <Row xs="3">
           <Col></Col>
           <Col>{mainContent()}</Col>
-          <Col></Col>
+          <Col>{props.usersOnline > 0 && <Logout />}</Col>
         </Row>
       </Container>
     </div>

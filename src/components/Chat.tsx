@@ -3,32 +3,10 @@ import { RootState } from "../store/index";
 import { connect } from "react-redux";
 import React, { useState } from "react";
 import { Message } from "../store/chat/types";
-import { Card, CardBody, CardText, CardFooter } from "reactstrap";
+import { Button, Card, CardBody, CardText, CardFooter } from "reactstrap";
 
 function Chat(props: any) {
   const [message, setMessage] = useState("");
-
-  const messageList = () =>
-    props.messages.map((message: Message) => (
-      <div key={message.timestamp}>
-        <br />
-        <Card style={{ width: "75%", margin: "auto", textAlign: "start" }}>
-          <CardBody>
-            <CardText>{message.message}</CardText>
-            <CardFooter style={{ fontSize: "x-small", padding: 0 }}>
-              <div
-                style={{
-                  float: "right"
-                }}
-              >
-                {new Date(message.timestamp).toLocaleTimeString()}
-              </div>
-              {props.currentUser.name}
-            </CardFooter>
-          </CardBody>
-        </Card>
-      </div>
-    ));
 
   const handleChange = (e: any) => setMessage(e.currentTarget.value);
 
@@ -43,12 +21,40 @@ function Chat(props: any) {
       <h1>Chat</h1>
       <form onSubmit={handleSubmit}>
         <input type="text" value={message} onChange={handleChange} />
-        <input type="submit" value="Send" />
+        <Button
+          varient="primary"
+          type="submit"
+          style={{ margin: 10, paddingTop: 1.5, paddingBottom: 1.5 }}
+        >
+          Send
+        </Button>
       </form>
-      {messageList()}
+      {messageList(props.messages)}
     </div>
   );
 }
+
+const messageList = (messages: Message[]) =>
+  messages.map((message: Message) => (
+    <div key={message.timestamp}>
+      <br />
+      <Card style={{ width: "75%", margin: "auto", textAlign: "start" }}>
+        <CardBody>
+          <CardText>{message.message}</CardText>
+          <CardFooter style={{ fontSize: "x-small", padding: 0 }}>
+            <div
+              style={{
+                float: "right"
+              }}
+            >
+              {new Date(message.timestamp).toLocaleTimeString()}
+            </div>
+            {message.user}
+          </CardFooter>
+        </CardBody>
+      </Card>
+    </div>
+  ));
 
 const mapDispatch = (dispatch: any) => ({
   sendMessage: (message: any) => dispatch(actions.sendMessage(message))
