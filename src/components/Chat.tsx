@@ -1,19 +1,34 @@
 import * as actions from "../store/chat/actions";
 import { RootState } from "../store/index";
 import { connect } from "react-redux";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Message } from "../store/chat/types";
 import { Button, Card, CardBody, CardText, CardFooter } from "reactstrap";
+import { HubConnectionBuilder } from "@microsoft/signalr";
 
 function Chat(props: any) {
   const [message, setMessage] = useState("");
+  const [hubConnection] = useState(
+    new HubConnectionBuilder().withUrl("https://localhost:5001/chatHub").build()
+  );
+
+  useEffect(() => {
+    hubConnection.on("ReceiveMessage", (user: string, message: string) => {
+      props.sendMessage({ user, message, timestamp: Date.now() });
+    });
+    hubConnection
+      .start()
+      .then(() => console.log("Connection started!"))
+      .catch(err => console.log("Error while establishing connection :("));
+  }, []);
 
   const handleChange = (e: any) => setMessage(e.currentTarget.value);
 
   const handleSubmit = (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
-    props.sendMessage({ user: "guest", message, timestamp: Date.now() });
-    setMessage("");
+    hubConnection
+      .send("sendMessage", "guest", message)
+      .then(() => setMessage(""));
   };
 
   return (

@@ -12,7 +12,6 @@ function App(props: any) {
     if (props.usersOnline === 0) {
       return <Login />;
     }
-
     return <Chat />;
   };
 
