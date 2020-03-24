@@ -8,7 +8,7 @@ export interface ChatState {
   messages: Message[];
 }
 
-export const SEND_MESSAGE = "SEND_MESSAGE";
+export const MESSAGE_SENT = "MESSAGE_SENT";
 export const SIGNALR_SEND_MESSAGE = "SIGNALR_SEND_MESSAGE";
 export const DELETE_MESSAGE = "DELETE_MESSAGE";
 export const RECEIVE_MESSAGE = "RECEIVE_MESSAGE";
@@ -17,8 +17,8 @@ interface SignalRSendMessageAction {
   type: typeof SIGNALR_SEND_MESSAGE;
   payload: Message;
 }
-interface SendMessageAction {
-  type: typeof SEND_MESSAGE;
+interface MessageSentAction {
+  type: typeof MESSAGE_SENT;
   payload: Message;
 }
 
@@ -35,7 +35,7 @@ interface ReceiveMessageAction {
 }
 
 export type ChatActionTypes =
-  | SendMessageAction
+  | MessageSentAction
   | SignalRSendMessageAction
   | DeleteMessageAction
   | ReceiveMessageAction;

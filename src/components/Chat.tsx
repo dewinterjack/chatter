@@ -1,10 +1,9 @@
 import * as actions from "../store/chat/actions";
 import { RootState } from "../store/index";
 import { connect } from "react-redux";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Message } from "../store/chat/types";
 import { Button, Card, CardBody, CardText, CardFooter } from "reactstrap";
-import { HubConnectionBuilder } from "@microsoft/signalr";
 
 function Chat(props: any) {
   const [message, setMessage] = useState("");
@@ -36,26 +35,28 @@ function Chat(props: any) {
 }
 
 const messageList = (messages: Message[]) =>
-  messages.map((message: Message) => (
-    <div key={message.timestamp}>
-      <br />
-      <Card style={{ width: "75%", margin: "auto", textAlign: "start" }}>
-        <CardBody>
-          <CardText>{message.message}</CardText>
-          <CardFooter style={{ fontSize: "x-small", padding: 0 }}>
-            <div
-              style={{
-                float: "right"
-              }}
-            >
-              {new Date(message.timestamp).toLocaleTimeString()}
-            </div>
-            {message.user}
-          </CardFooter>
-        </CardBody>
-      </Card>
-    </div>
-  ));
+  messages.map((message: Message, index) => {
+    return (
+      <div key={message.timestamp}>
+        <br />
+        <Card style={{ width: "75%", margin: "auto", textAlign: "start" }}>
+          <CardBody>
+            <CardText>{message.message}</CardText>
+            <CardFooter style={{ fontSize: "x-small", padding: 0 }}>
+              <div
+                style={{
+                  float: "right"
+                }}
+              >
+                {new Date(message.timestamp).toLocaleTimeString()}
+              </div>
+              {message.user}
+            </CardFooter>
+          </CardBody>
+        </Card>
+      </div>
+    );
+  });
 
 const mapDispatch = (dispatch: any) => ({
   sendMessage: (message: any) => dispatch(actions.sendMessage(message))

@@ -1,6 +1,6 @@
 import {
   Message,
-  SEND_MESSAGE,
+  MESSAGE_SENT,
   DELETE_MESSAGE,
   RECEIVE_MESSAGE,
   SIGNALR_SEND_MESSAGE,
@@ -14,9 +14,9 @@ export function sendMessage(newMessage: Message): ChatActionTypes {
   };
 }
 
-export function signalRSendMessage(newMessage: Message): ChatActionTypes {
+export function messageSent(newMessage: Message): ChatActionTypes {
   return {
-    type: SEND_MESSAGE,
+    type: MESSAGE_SENT,
     payload: newMessage
   };
 }

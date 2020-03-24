@@ -26,10 +26,12 @@
     "typescript": "^3.7.5"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start && npm run start-server",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start-server": "dotnet run --project Chatter.Api/Chatter.Api.csproj",
+    "start-client": "react-scripts start"
   },
   "eslintConfig": {
     "extends": "react-app"

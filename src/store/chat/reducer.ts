@@ -1,7 +1,7 @@
 import {
   ChatState,
   ChatActionTypes,
-  SEND_MESSAGE,
+  MESSAGE_SENT,
   RECEIVE_MESSAGE,
   DELETE_MESSAGE
 } from "./types";
@@ -15,11 +15,13 @@ export function chatReducer(
   action: ChatActionTypes
 ): ChatState {
   switch (action.type) {
-    // case RECEIVE_MESSAGE:
-    //   return {
-    //     messages: [...state.messages, action.payload]
-    //   };
-    case SEND_MESSAGE:
+    case RECEIVE_MESSAGE:
+      const sorted = [...state.messages, action.payload].sort(
+        (a, b) => a.timestamp - b.timestamp
+      );
+      return { messages: sorted };
+
+    case MESSAGE_SENT:
       return {
         messages: [...state.messages, action.payload]
       };

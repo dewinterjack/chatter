@@ -1,13 +1,10 @@
-import { HubConnectionBuilder } from "@microsoft/signalr";
+import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import * as actions from "./store/chat/actions";
-import {
-  SEND_MESSAGE,
-  Message,
-  SIGNALR_SEND_MESSAGE
-} from "./store/chat/types";
+import { SIGNALR_SEND_MESSAGE } from "./store/chat/types";
 
 const connection = new HubConnectionBuilder()
   .withUrl("https://localhost:5001/chatHub")
+  .configureLogging(LogLevel.Debug)
   .build();
 
 export function signalRInvokeMiddleware(store: any) {
@@ -17,9 +14,10 @@ export function signalRInvokeMiddleware(store: any) {
         connection.invoke(
           "sendMessage",
           action.payload.user,
-          action.payload.message
+          action.payload.message,
+          action.payload.timestamp.toString()
         );
-        store.dispatch(actions.signalRSendMessage(action.payload));
+        store.dispatch(actions.messageSent(action.payload));
         break;
     }
 
@@ -28,20 +26,16 @@ export function signalRInvokeMiddleware(store: any) {
 }
 
 export function signalRRegisterCommands(store: any, callback: Function) {
-  connection.on("ReceiveMessage", data => {
-    // store.dispatch(
-    //   actions.receiveMessage({
-    //     user: data.user,
-    //     message: data.message,
-    //     timestamp: Date.now()
-    //   })
-    // );
+  connection.on("ReceiveMessage", (user, message, timestamp) => {
+    timestamp = +timestamp;
+    store.dispatch(
+      actions.receiveMessage({
+        user,
+        message,
+        timestamp
+      })
+    );
     console.log("Message has been sent");
-  });
-
-  connection.on("DecrementCounter", data => {
-    store.dispatch({ type: "DECREMENT_COUNT" });
-    console.log("Count has been decremented");
   });
 
   connection.start().then(callback());
