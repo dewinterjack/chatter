@@ -5,17 +5,30 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
-import { createStore } from "redux";
+import { createStore, applyMiddleware, compose } from "redux";
 import { rootReducer } from "./store/index";
+import {
+  signalRInvokeMiddleware,
+  signalRRegisterCommands
+} from "./signalrmiddleware";
+import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 
-const store = createStore(rootReducer, composeWithDevTools());
+const store = createStore(
+  rootReducer,
+  compose(
+    applyMiddleware(thunk, signalRInvokeMiddleware),
+    composeWithDevTools()
+  )
+);
 
-ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById("root")
+signalRRegisterCommands(store, () =>
+  ReactDOM.render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    document.getElementById("root")
+  )
 );
 
 serviceWorker.unregister();

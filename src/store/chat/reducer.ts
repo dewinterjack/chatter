@@ -2,6 +2,7 @@ import {
   ChatState,
   ChatActionTypes,
   SEND_MESSAGE,
+  RECEIVE_MESSAGE,
   DELETE_MESSAGE
 } from "./types";
 
@@ -14,6 +15,10 @@ export function chatReducer(
   action: ChatActionTypes
 ): ChatState {
   switch (action.type) {
+    // case RECEIVE_MESSAGE:
+    //   return {
+    //     messages: [...state.messages, action.payload]
+    //   };
     case SEND_MESSAGE:
       return {
         messages: [...state.messages, action.payload]
