@@ -32,7 +32,8 @@
     "eject": "react-scripts eject",
     "start-server": "dotnet run --project Chatter.Api/Chatter.Api.csproj",
     "build-server": "dotnet build Chatter.Api/Chatter.Api.csproj",
-    "start-client": "react-scripts start"
+    "start-client": "react-scripts start",
+    "deploy": "npm run build && netlify deploy"
   },
   "eslintConfig": {
     "extends": "react-app"

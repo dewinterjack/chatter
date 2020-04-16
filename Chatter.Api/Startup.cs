@@ -24,10 +24,10 @@ namespace Chatter.Api
                 builder
                     .AllowAnyMethod()
                     .AllowAnyHeader()
-                    .WithOrigins("http://localhost:3000", "http://localhost:3001")
+                    .WithOrigins("http://localhost:3000", "http://localhost:3001", "https://*.netlify.com", "https://netlify.com", "https://chatter-client.netlify.app/")
                     .AllowCredentials();
             }));
-            services.AddSignalR();
+            services.AddSignalR().AddAzureSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,7 +42,7 @@ namespace Chatter.Api
 
             app.UseCors("CorsPolicy");
 
-            app.UseEndpoints(endpoints =>
+            app.UseAzureSignalR(endpoints =>
             {
                 endpoints.MapHub<ChatHub>("/chatHub");
             });
