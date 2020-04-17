@@ -23,7 +23,7 @@ namespace Chatter.Api
                 builder
                     .AllowAnyMethod()
                     .AllowAnyHeader()
-                    .WithOrigins("http://localhost:3000", "http://localhost:3001", "https://*.netlify.com", "https://netlify.com", "https://chatter-client.netlify.app/")
+                    .WithOrigins("http://localhost:3000", "http://localhost:3001", "https://*.netlify.app", "https://*.netlify.com")
                     .AllowCredentials();
             }));
             services.AddSignalR().AddAzureSignalR();
