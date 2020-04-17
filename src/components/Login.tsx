@@ -3,11 +3,12 @@ import { RootState } from "../store/index";
 import { connect } from "react-redux";
 import React from "react";
 import { Button } from "reactstrap";
+import * as NetlifyIdentityWidget from "netlify-identity-widget";
 
 function Login(props: any) {
   return (
     <div style={{ marginTop: "10%" }}>
-      <Button onClick={() => props.login("guest")}>Login as guest</Button>
+      <Button onClick={() => NetlifyIdentityWidget.open()}>Login as guest</Button>
       <br />
       <p>Users online: {props.usersOnline}</p>
     </div>
