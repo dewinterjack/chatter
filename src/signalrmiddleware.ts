@@ -3,7 +3,7 @@ import * as actions from "./store/chat/actions";
 import { SIGNALR_SEND_MESSAGE } from "./store/chat/types";
 
 const connection = new HubConnectionBuilder()
-  .withUrl("https://localhost:5001/chatHub")
+  .withUrl("https://chatterapi-dev-as.azurewebsites.net/chatHub")
   .configureLogging(LogLevel.Debug)
   .build();
 
