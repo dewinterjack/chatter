@@ -1,5 +1,6 @@
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
-import * as actions from "./store/chat/actions";
+import * as chatActions from "./store/chat/actions";
+import * as systemActions from "./store/system/actions";
 import { SIGNALR_SEND_MESSAGE } from "./store/chat/types";
 
 const connection = new HubConnectionBuilder()
@@ -17,7 +18,7 @@ export function signalRInvokeMiddleware(store: any) {
           action.payload.message,
           action.payload.timestamp.toString()
         );
-        store.dispatch(actions.messageSent(action.payload));
+        store.dispatch(chatActions.messageSent(action.payload));
         break;
     }
 
@@ -29,13 +30,16 @@ export function signalRRegisterCommands(store: any, callback: Function) {
   connection.on("ReceiveMessage", (user, message, timestamp) => {
     timestamp = +timestamp;
     store.dispatch(
-      actions.receiveMessage({
+      chatActions.receiveMessage({
         user,
         message,
         timestamp
       })
     );
-    console.log("Message has been sent");
+  });
+
+  connection.on("ConnectionCountChanged", (connectionCount: number) => {
+    store.dispatch(systemActions.connectionCountChanged(connectionCount));
   });
 
   connection.start().then(callback());

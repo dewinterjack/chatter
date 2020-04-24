@@ -1,4 +1,4 @@
-import { SystemState, SystemActionTypes, LOG_IN, LOG_OUT } from "./types";
+import { SystemState, SystemActionTypes, LOG_IN, LOG_OUT, CONNECTION_COUNT_CHANGED } from "./types";
 
 const initialState: SystemState = {
   usersOnline: 0,
@@ -12,13 +12,18 @@ export function systemReducer(
   switch (action.type) {
     case LOG_IN:
       return {
-        usersOnline: state.usersOnline + 1,
+        usersOnline: state.usersOnline,
         currentUser: { id: state.usersOnline + 1, name: action.name }
       };
     case LOG_OUT:
       return {
-        usersOnline: state.usersOnline - 1,
-        currentUser: { id: state.usersOnline - 1, name: "" }
+        usersOnline: state.usersOnline,
+        currentUser: { id: 0, name: "" }
+      };
+    case CONNECTION_COUNT_CHANGED:
+      return {
+        usersOnline: action.connectionCount,
+        currentUser: state.currentUser
       };
     default:
       return state;

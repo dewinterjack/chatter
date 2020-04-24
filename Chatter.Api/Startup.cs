@@ -40,7 +40,7 @@ namespace Chatter.Api
 
             app.UseCors("CorsPolicy");
 
-            app.UseAzureSignalR(endpoints =>
+            app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<ChatHub>("/chatHub");
             });

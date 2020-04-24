@@ -10,6 +10,7 @@ export interface SystemState {
 
 export const LOG_IN = "LOG_IN";
 export const LOG_OUT = "LOG_OUT";
+export const CONNECTION_COUNT_CHANGED = "CONNECTION_COUNT_CHANGED";
 
 interface LoginAction {
   type: typeof LOG_IN;
@@ -20,4 +21,9 @@ interface LogoutAction {
   type: typeof LOG_OUT;
 }
 
-export type SystemActionTypes = LoginAction | LogoutAction;
+interface ConnectionCountChangedAction {
+  type: typeof CONNECTION_COUNT_CHANGED;
+  connectionCount: number;
+}
+
+export type SystemActionTypes = LoginAction | LogoutAction | ConnectionCountChangedAction;
