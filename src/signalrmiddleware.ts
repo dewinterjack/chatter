@@ -2,6 +2,7 @@ import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
 import * as chatActions from "./store/chat/actions";
 import * as systemActions from "./store/system/actions";
 import { SIGNALR_SEND_MESSAGE } from "./store/chat/types";
+import { LOG_IN, LOG_OUT } from "./store/system/types";
 
 const connection = new HubConnectionBuilder()
   .withUrl("https://chatterapi-dev-as.azurewebsites.net/chatHub")
@@ -19,6 +20,14 @@ export function signalRInvokeMiddleware(store: any) {
           action.payload.timestamp.toString()
         );
         store.dispatch(chatActions.messageSent(action.payload));
+        break;
+      case LOG_IN:
+        connection.invoke("logIn");
+        store.dispatch(systemActions.loggedIn(action.payload));
+        break;
+      case LOG_OUT:
+        connection.invoke("logOut");
+        store.dispatch(systemActions.loggedOut());
         break;
     }
 

@@ -8,21 +8,14 @@ import { connect } from "react-redux";
 import Logout from "./components/Logout";
 
 function App(props: any) {
-  const mainContent = () => {
-    if (props.currentUser.id === 0) {
-      return <Login />;
-    }
-    return <Chat />;
-  };
-
   return (
     <div className="App">
       <Container>
         Users online: {props.usersOnline}
         <Row xs="3">
           <Col></Col>
-          <Col>{mainContent()}</Col>
-  <Col>{ props.currentUser.id !== 0 && <Logout />}</Col>
+          <Col><Login/><Chat/></Col>
+  <Col>{ props.currentUser.name !== "guest" && <Logout />}</Col>
         </Row>
       </Container>
     </div>

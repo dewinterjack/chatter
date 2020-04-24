@@ -12,7 +12,8 @@ window.netlifyIdentity = NetlifyIdentityWidget;
 NetlifyIdentityWidget.init();
 
 function configureIdentity(store: any){
-    NetlifyIdentityWidget.on('login', user => store.dispatch(actions.login(user.user_metadata.full_name)))
-}
+    NetlifyIdentityWidget.on('login', user => store.dispatch(actions.login(user.user_metadata.full_name)));
+    NetlifyIdentityWidget.on('logout', () => store.dispatch(actions.logout()));
+  }
 
 export default configureIdentity;

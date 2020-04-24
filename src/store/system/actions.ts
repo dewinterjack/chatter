@@ -1,4 +1,4 @@
-import { LOG_IN, LOG_OUT, CONNECTION_COUNT_CHANGED, SystemActionTypes } from "./types";
+import { LOG_IN, LOG_OUT, LOGGED_IN, LOGGED_OUT, CONNECTION_COUNT_CHANGED, SystemActionTypes } from "./types";
 
 export function login(name: string): SystemActionTypes {
   return {
@@ -10,6 +10,19 @@ export function login(name: string): SystemActionTypes {
 export function logout(): SystemActionTypes {
   return {
     type: LOG_OUT
+  };
+}
+
+export function loggedIn(name: string): SystemActionTypes {
+  return {
+    type: LOGGED_IN,
+    name: name
+  };
+}
+
+export function loggedOut(): SystemActionTypes {
+  return {
+    type: LOGGED_OUT
   };
 }
 
