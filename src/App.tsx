@@ -14,7 +14,7 @@ function App(props: any) {
         Users online: {props.usersOnline}
         <Row xs="3">
           <Col></Col>
-          <Col><Login/><Chat/></Col>
+          <Col>{ props.currentUser.name === "guest" && <Login />}<Chat/></Col>
   <Col>{ props.currentUser.name !== "guest" && <Logout />}</Col>
         </Row>
       </Container>

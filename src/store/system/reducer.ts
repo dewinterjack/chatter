@@ -11,11 +11,13 @@ export function systemReducer(
 ): SystemState {
   switch (action.type) {
     case LOGGED_IN:
+      localStorage.setItem("currentUser", action.name);
       return {
         usersOnline: state.usersOnline,
         currentUser: { id: state.usersOnline + 1, name: action.name }
       };
     case LOG_OUT:
+        localStorage.removeItem("currentUser");
       return {
         usersOnline: state.usersOnline,
         currentUser: { id: 0, name: "guest" }

@@ -3,6 +3,7 @@ import * as chatActions from "./store/chat/actions";
 import * as systemActions from "./store/system/actions";
 import { SIGNALR_SEND_MESSAGE } from "./store/chat/types";
 import { LOG_IN, LOG_OUT } from "./store/system/types";
+import * as NetlifyIdentityWidget from "netlify-identity-widget";
 
 const connection = new HubConnectionBuilder()
   .withUrl("https://chatterapi-dev-as.azurewebsites.net/chatHub")
@@ -23,7 +24,7 @@ export function signalRInvokeMiddleware(store: any) {
         break;
       case LOG_IN:
         connection.invoke("logIn");
-        store.dispatch(systemActions.loggedIn(action.payload));
+        store.dispatch(systemActions.loggedIn(action.name));
         break;
       case LOG_OUT:
         connection.invoke("logOut");
@@ -51,5 +52,11 @@ export function signalRRegisterCommands(store: any, callback: Function) {
     store.dispatch(systemActions.connectionCountChanged(connectionCount));
   });
 
-  connection.start().then(callback());
+  connection.start().then(() => {
+    let currentUser = localStorage.getItem("currentUser");
+    if(currentUser !== null){
+      store.dispatch(systemActions.login(currentUser))
+    }
+  }).then(callback());
 }
+
