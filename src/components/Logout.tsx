@@ -3,12 +3,13 @@ import { RootState } from "../store/index";
 import { connect } from "react-redux";
 import React from "react";
 import { Button } from "reactstrap";
+import * as NetlifyIdentityWidget from "netlify-identity-widget";
 
 function Logout(props: any) {
   return (
     <div>
       {props.username}
-      <Button style={{ margin: 10 }} onClick={() => props.logout()}>
+      <Button style={{ margin: 10 }} onClick={() => NetlifyIdentityWidget.logout()}>
         Logout
       </Button>
     </div>

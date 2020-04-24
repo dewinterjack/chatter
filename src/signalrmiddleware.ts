@@ -1,6 +1,8 @@
 import { HubConnectionBuilder, LogLevel } from "@microsoft/signalr";
-import * as actions from "./store/chat/actions";
+import * as chatActions from "./store/chat/actions";
+import * as systemActions from "./store/system/actions";
 import { SIGNALR_SEND_MESSAGE } from "./store/chat/types";
+import { LOG_IN, LOG_OUT } from "./store/system/types";
 
 const connection = new HubConnectionBuilder()
   .withUrl("https://chatterapi-dev-as.azurewebsites.net/chatHub")
@@ -17,7 +19,15 @@ export function signalRInvokeMiddleware(store: any) {
           action.payload.message,
           action.payload.timestamp.toString()
         );
-        store.dispatch(actions.messageSent(action.payload));
+        store.dispatch(chatActions.messageSent(action.payload));
+        break;
+      case LOG_IN:
+        connection.invoke("logIn");
+        store.dispatch(systemActions.loggedIn(action.payload));
+        break;
+      case LOG_OUT:
+        connection.invoke("logOut");
+        store.dispatch(systemActions.loggedOut());
         break;
     }
 
@@ -29,13 +39,16 @@ export function signalRRegisterCommands(store: any, callback: Function) {
   connection.on("ReceiveMessage", (user, message, timestamp) => {
     timestamp = +timestamp;
     store.dispatch(
-      actions.receiveMessage({
+      chatActions.receiveMessage({
         user,
         message,
         timestamp
       })
     );
-    console.log("Message has been sent");
+  });
+
+  connection.on("ConnectionCountChanged", (connectionCount: number) => {
+    store.dispatch(systemActions.connectionCountChanged(connectionCount));
   });
 
   connection.start().then(callback());

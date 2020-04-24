@@ -10,10 +10,6 @@ const initialState: ChatState = {
   messages: []
 };
 
-function onlyUnique(value: any, index: any, self: any) {
-  return self.indexOf(value) === index;
-}
-
 export function chatReducer(
   state = initialState,
   action: ChatActionTypes
