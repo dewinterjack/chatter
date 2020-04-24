@@ -6,7 +6,6 @@ import { Button } from "reactstrap";
 import * as NetlifyIdentityWidget from "netlify-identity-widget";
 
 function Login(props: any) {
-
   return (
     <div style={{ marginTop: "10%" }}>
       <Button onClick={() => NetlifyIdentityWidget.open()}>Login</Button>

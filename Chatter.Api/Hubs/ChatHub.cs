@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 namespace Chatter.Api.Hubs
@@ -33,6 +33,6 @@ namespace Chatter.Api.Hubs
 
     public static class UserHandler
     {
-        public static ObservableCollection<string> ConnectionIds = new ObservableCollection<string>();
+        public static HashSet<string> ConnectionIds = new HashSet<string>();
     }
 }

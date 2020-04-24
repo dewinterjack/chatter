@@ -1,4 +1,4 @@
-import { SystemState, SystemActionTypes, LOGGED_IN, LOG_OUT, CONNECTION_COUNT_CHANGED } from "./types";
+import { SystemState, SystemActionTypes, LOGGED_IN, LOGGED_OUT, CONNECTION_COUNT_CHANGED } from "./types";
 
 const initialState: SystemState = {
   usersOnline: 0,
@@ -16,7 +16,7 @@ export function systemReducer(
         usersOnline: state.usersOnline,
         currentUser: { id: state.usersOnline + 1, name: action.name }
       };
-    case LOG_OUT:
+    case LOGGED_OUT:
         localStorage.removeItem("currentUser");
       return {
         usersOnline: state.usersOnline,
