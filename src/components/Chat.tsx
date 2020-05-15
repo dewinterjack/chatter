@@ -31,7 +31,9 @@ function Chat(props: any) {
           Send
         </Button>
       </form>
-      {messageList(props.messages)}
+      <div style={{overflowY: "auto", maxHeight: "60em"}}>
+        {messageList(props.messages)}
+      </div>
     </div>
   );
 }
