@@ -6,7 +6,7 @@ import { LOG_IN, LOG_OUT } from "./store/system/types";
 import * as NetlifyIdentityWidget from "netlify-identity-widget";
 
 const connection = new HubConnectionBuilder()
-  .withUrl("https://chatterapi-dev-as.azurewebsites.net/chatHub")
+  .withUrl(process.env.REACT_APP_SIGNALR_SERVER + "/chatHub")
   .configureLogging(LogLevel.Debug)
   .build();
 
