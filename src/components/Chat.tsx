@@ -12,8 +12,10 @@ function Chat(props: any) {
 
   const handleSubmit = (e: React.FormEvent<HTMLElement>) => {
     e.preventDefault();
-    props.sendMessage({ user: props.currentUser.name, message, timestamp: Date.now() });
-    setMessage("");
+    if(message != ""){
+      props.sendMessage({ user: props.currentUser.name, message, timestamp: Date.now() });
+      setMessage("");
+    }
   };
 
   return (
